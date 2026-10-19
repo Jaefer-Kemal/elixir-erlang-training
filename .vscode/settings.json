@@ -1,0 +1,7 @@
+{
+  "erlang.formatterEnabled": true,
+  "[erlang]": {
+    "editor.defaultFormatter": "pgourlain.erlang",
+    "editor.formatOnSave": true
+  }
+}
