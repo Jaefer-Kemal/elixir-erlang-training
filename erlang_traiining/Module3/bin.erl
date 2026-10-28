@@ -17,6 +17,7 @@ extract() ->
     <<First:40, Rest/binary>> = Data,
     io:format("First: ~p~n",[<<First:40>>]),
     io:format("Rest: ~p~n",[Rest]).
+    
     % <<First:5/binary, Rest/binary>> = Data,
     % io:format("First: ~p~n",[First]),
     % io:format("Rest: ~p~n",[Rest]).
@@ -132,8 +133,8 @@ decode_file(
 % Mini Projecy
 encode_payment(UserId, Amount, Currency, MsgType) 
     when 
-        is_integer(UserId) andalso UserId =< 16#FFFFFFFF,
-        is_integer(MsgType) andalso MsgType > 0 andalso MsgType < 2, 
+        is_integer(UserId) andalso UserId =< 16#FFFFFFFF andalso UserId > 0,
+        is_integer(MsgType) andalso MsgType >= 0 andalso MsgType < 2, 
         is_binary(Currency) andalso byte_size(Currency) =:= 3,
         is_integer(Amount) andalso Amount >= 0 andalso Amount =< 16#FFFFFFFFFFFFFFFF->
             
@@ -144,8 +145,8 @@ encode_payment(_,_,_,_) ->
 
 decode_payment(<<1:8, MsgType:8, UserId:32, Amount:64, Currency:3/binary>>) 
     when 
-        is_integer(UserId) andalso UserId =< 16#FFFFFFFF andalso UserId >= 0,
-        is_integer(MsgType) andalso MsgType > 0 andalso MsgType < 2, 
+        is_integer(UserId) andalso UserId =< 16#FFFFFFFF andalso UserId > 0,
+        is_integer(MsgType) andalso MsgType >= 0 andalso MsgType < 2, 
         is_binary(Currency) andalso byte_size(Currency) =:= 3,
         is_integer(Amount) andalso Amount >= 0 andalso Amount =< 16#FFFFFFFFFFFFFFFF ->
 
